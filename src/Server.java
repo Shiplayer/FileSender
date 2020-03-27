@@ -7,7 +7,7 @@ public class Server {
     private static ServerSocket serverSocket;
     private static BufferedOutputStream bos;
 
-// C:\\Users\\vlada\\Documents\\al.jpg
+// C:\\Users\\vlada\\Documents\\atom.exe
 
     public static void main(String[] args) throws Exception {
         serverSocket = new ServerSocket(7777);
@@ -29,9 +29,20 @@ public class Server {
             writer.newLine();
             writer.flush();
 
-            while (fis.available() > 0) {
-                byte[] bytes = fis.readNBytes(1024);
-                bos.write(bytes);
+//            while (fis.available() > 0) {
+//                byte[] bytes = fis.readNBytes(1024);
+//                bos.write(bytes);
+//            }
+
+            byte[] buffer = new byte[15 * 1024];
+
+            int c = 0;
+
+            while (c > -1) {
+                c = fis.read(buffer, 0, 1024);
+                System.out.println(c);
+                if (c != -1)
+                    bos.write(buffer, 0, c);
             }
             bos.flush();
 

@@ -17,11 +17,21 @@ public class Client {
         File file = new File("C:\\Users\\vlada\\Desktop\\" + fileEx);
         FileOutputStream fos = new FileOutputStream(file);
 
-        while (bis.available() > 0) {
-            byte[] bytes = bis.readNBytes(1024);
-            fos.write(bytes);
-        }
+//        while (bis.available() > 0) {
+//            byte[] bytes = bis.readNBytes(1024);
+//            fos.write(bytes);
+//        }
 
+        int c = 0;
+
+        byte[] buffer = new byte[15 * 1024];
+
+        while (c > -1) {
+            c = bis.read(buffer, 0, 1024);
+            System.out.println(c);
+            if (c != -1)
+                fos.write(buffer, 0, c);
+        }
 
         fos.flush();
 
